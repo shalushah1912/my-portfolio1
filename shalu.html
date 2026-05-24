@@ -1,579 +1,589 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Internship Portfolio</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Shalu Shah – Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#0a0a0f;--bg2:#111118;--bg3:#1a1a24;--card:#1e1e2c;
+  --accent:#7c6af7;--accent2:#a78bfa;--gold:#f4c542;--teal:#3ecfb0;
+  --text:#f0eef8;--text2:#a09cba;--text3:#6b6880;
+  --border:#2a2840;--radius:14px;--font:'DM Sans',sans-serif;
+  --display:'Playfair Display',serif;--mono:'JetBrains Mono',monospace;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;overflow-x:hidden;}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-      scroll-behavior: smooth;
-    }
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:60px;}
+.nav-logo{font-family:var(--display);font-size:1.35rem;font-weight:700;color:var(--accent2);letter-spacing:.02em;}
+.nav-links{display:flex;gap:.25rem;}
+.nav-links button{background:none;border:none;color:var(--text2);font-size:.85rem;font-family:var(--font);padding:.45rem .9rem;border-radius:8px;cursor:pointer;transition:all .2s;}
+.nav-links button:hover,.nav-links button.active{color:var(--accent2);background:rgba(124,106,247,.12);}
 
-    body {
-      background: linear-gradient(135deg, #0f172a, #1e293b);
-      color: white;
-      overflow-x: hidden;
-    }
+/* PAGE TRANSITIONS */
+.page{display:none;animation:fadeIn .35s ease;}
+.page.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 
-    header {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 40px;
-      background: radial-gradient(circle at top right, #2563eb, #0f172a 60%);
-    }
+/* HERO */
+.hero{min-height:calc(100vh - 60px);display:flex;align-items:center;justify-content:center;text-align:center;padding:4rem 2rem;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 30%,rgba(124,106,247,.18) 0%,transparent 70%);pointer-events:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(124,106,247,.15);border:1px solid rgba(124,106,247,.3);color:var(--accent2);font-size:.8rem;padding:.4rem 1rem;border-radius:100px;margin-bottom:1.5rem;font-weight:500;}
+.hero h1{font-family:var(--display);font-size:clamp(3rem,8vw,6rem);font-weight:900;line-height:1.05;margin-bottom:1rem;}
+.hero h1 span{color:var(--accent2);}
+.hero-sub{font-size:1.15rem;color:var(--text2);max-width:520px;margin:0 auto 2rem;line-height:1.7;}
+.hero-cta{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+.btn-primary{background:var(--accent);color:#fff;border:none;padding:.75rem 1.75rem;border-radius:10px;font-size:.95rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:var(--font);}
+.btn-primary:hover{background:var(--accent2);transform:translateY(-2px);}
+.btn-outline{background:none;border:1.5px solid var(--border);color:var(--text);padding:.75rem 1.75rem;border-radius:10px;font-size:.95rem;cursor:pointer;transition:all .2s;font-family:var(--font);}
+.btn-outline:hover{border-color:var(--accent2);color:var(--accent2);}
 
-    .hero {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 60px;
-      width: 100%;
-      max-width: 1200px;
-      flex-wrap: wrap;
-    }
+/* GRID LAYOUTS */
+.section{max-width:960px;margin:0 auto;padding:3.5rem 1.5rem;}
+.section-label{font-size:.75rem;text-transform:uppercase;letter-spacing:.15em;color:var(--accent);font-weight:600;margin-bottom:.5rem;}
+.section-title{font-family:var(--display);font-size:2.4rem;font-weight:700;margin-bottom:.75rem;line-height:1.2;}
+.section-desc{color:var(--text2);font-size:1rem;line-height:1.7;max-width:600px;margin-bottom:2.5rem;}
 
-    .hero-text {
-      flex: 1;
-      animation: slideIn 1.2s ease;
-    }
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;transition:border-color .2s,transform .2s;}
+.card:hover{border-color:rgba(124,106,247,.4);transform:translateY(-3px);}
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.25rem;}
 
-    .hero-text h1 {
-      font-size: 60px;
-      margin-bottom: 15px;
-      color: #60a5fa;
-    }
+/* SKILLS */
+.skill-tag{display:inline-flex;align-items:center;gap:.5rem;background:rgba(124,106,247,.12);border:1px solid rgba(124,106,247,.25);color:var(--accent2);padding:.45rem 1rem;border-radius:8px;font-size:.88rem;font-weight:500;margin:.3rem;}
 
-    .hero-text h2 {
-      font-size: 28px;
-      margin-bottom: 20px;
-      color: #e2e8f0;
-    }
+/* TIMELINE */
+.timeline{position:relative;padding-left:1.75rem;}
+.timeline::before{content:'';position:absolute;left:0;top:.5rem;bottom:.5rem;width:2px;background:linear-gradient(to bottom,var(--accent),transparent);}
+.timeline-item{position:relative;margin-bottom:1.75rem;}
+.timeline-item::before{content:'';position:absolute;left:-1.875rem;top:.35rem;width:10px;height:10px;background:var(--accent2);border-radius:50%;border:2px solid var(--bg);}
+.timeline-title{font-weight:600;font-size:1rem;margin-bottom:.25rem;}
+.timeline-org{color:var(--teal);font-size:.85rem;font-weight:500;margin-bottom:.35rem;}
+.timeline-desc{color:var(--text2);font-size:.9rem;line-height:1.6;}
 
-    .hero-text p {
-      font-size: 18px;
-      line-height: 1.8;
-      color: #cbd5e1;
-      margin-bottom: 25px;
-    }
+/* AIMS */
+.aim-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;display:flex;gap:1rem;align-items:flex-start;}
+.aim-icon{width:44px;height:44px;border-radius:10px;background:rgba(62,207,176,.15);display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0;}
 
-    .hero-buttons a {
-      text-decoration: none;
-      padding: 12px 25px;
-      border-radius: 30px;
-      margin-right: 15px;
-      font-weight: 600;
-      transition: 0.4s;
-    }
+/* WEEKS SECTION */
+.weeks-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.25rem;}
+.week-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;cursor:pointer;transition:all .25s;text-align:center;}
+.week-card:hover{border-color:var(--accent);background:rgba(124,106,247,.08);transform:translateY(-4px);}
+.week-num{font-family:var(--display);font-size:2.5rem;font-weight:900;color:var(--accent2);line-height:1;}
+.week-label{color:var(--text2);font-size:.85rem;margin-top:.5rem;}
+.week-days-count{display:inline-block;margin-top:.75rem;background:rgba(124,106,247,.15);color:var(--accent2);border-radius:100px;padding:.25rem .85rem;font-size:.78rem;font-weight:600;}
 
-    .btn-primary {
-      background: #3b82f6;
-      color: white;
-    }
+/* DAYS VIEW */
+.back-btn{display:inline-flex;align-items:center;gap:.5rem;background:none;border:1.5px solid var(--border);color:var(--text2);padding:.5rem 1rem;border-radius:8px;cursor:pointer;font-family:var(--font);font-size:.88rem;margin-bottom:1.75rem;transition:all .2s;}
+.back-btn:hover{color:var(--accent2);border-color:var(--accent2);}
+.days-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;}
+.day-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;cursor:pointer;transition:all .25s;text-align:center;}
+.day-card:hover{border-color:var(--teal);background:rgba(62,207,176,.07);transform:translateY(-3px);}
+.day-num{font-family:var(--display);font-size:2rem;font-weight:900;color:var(--teal);line-height:1;}
+.day-label{color:var(--text2);font-size:.82rem;margin-top:.4rem;}
+.day-dot{width:8px;height:8px;border-radius:50%;background:var(--border);margin:.75rem auto 0;transition:background .2s;}
+.day-card:hover .day-dot{background:var(--teal);}
 
-    .btn-primary:hover {
-      background: white;
-      color: #0f172a;
-      transform: translateY(-5px);
-    }
+/* DAY DETAIL */
+.day-detail-header{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin-bottom:1.5rem;}
+.day-detail-title{font-family:var(--display);font-size:2rem;font-weight:700;margin-bottom:.25rem;}
+.day-detail-subtitle{color:var(--text2);}
+.upload-box{background:var(--bg3);border:2px dashed var(--border);border-radius:var(--radius);padding:1.5rem;text-align:center;cursor:pointer;transition:all .2s;display:block;}
+.upload-box:hover{border-color:var(--accent);background:rgba(124,106,247,.06);}
+.upload-icon{font-size:2rem;margin-bottom:.75rem;}
+.upload-label{font-weight:600;font-size:.95rem;margin-bottom:.25rem;}
+.upload-hint{color:var(--text3);font-size:.8rem;}
+.upload-input{display:none;}
+.entries-area{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;min-height:180px;}
+.entry-item{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem 1.25rem;margin-bottom:.75rem;display:flex;align-items:flex-start;gap:.75rem;}
+.entry-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.entry-text{flex:1;}
+.entry-name{font-weight:500;font-size:.9rem;}
+.entry-meta{color:var(--text3);font-size:.78rem;margin-top:.2rem;}
+.entry-del{background:none;border:none;color:var(--text3);cursor:pointer;font-size:1rem;padding:4px;border-radius:6px;transition:color .2s;}
+.entry-del:hover{color:#f87171;}
+.note-form{display:flex;gap:.75rem;margin-top:1rem;}
+.note-input{flex:1;background:var(--bg3);border:1.5px solid var(--border);color:var(--text);padding:.65rem 1rem;border-radius:10px;font-family:var(--font);font-size:.9rem;outline:none;transition:border-color .2s;}
+.note-input:focus{border-color:var(--accent);}
+.code-area{width:100%;background:var(--bg);border:1.5px solid var(--border);color:#a9c2e4;padding:1rem;border-radius:10px;font-family:var(--mono);font-size:.85rem;resize:vertical;min-height:120px;outline:none;transition:border-color .2s;margin-top:.75rem;}
+.code-area:focus{border-color:var(--accent);}
+.save-btn{background:var(--accent);color:#fff;border:none;padding:.6rem 1.25rem;border-radius:8px;cursor:pointer;font-family:var(--font);font-weight:600;font-size:.88rem;transition:background .2s;}
+.save-btn:hover{background:var(--accent2);}
+.tab-row{display:flex;gap:.5rem;margin-bottom:1.25rem;flex-wrap:wrap;}
+.tab{background:none;border:1.5px solid var(--border);color:var(--text2);padding:.45rem 1rem;border-radius:8px;cursor:pointer;font-family:var(--font);font-size:.85rem;transition:all .2s;}
+.tab.active,.tab:hover{border-color:var(--accent);color:var(--accent2);background:rgba(124,106,247,.1);}
+.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.75rem;margin-top:.75rem;}
+.photo-thumb{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;border:1px solid var(--border);}
 
-    .btn-secondary {
-      border: 2px solid #60a5fa;
-      color: #60a5fa;
-    }
-
-    .btn-secondary:hover {
-      background: #60a5fa;
-      color: #0f172a;
-      transform: translateY(-5px);
-    }
-
-    .profile-card {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      animation: zoomIn 1.5s ease;
-    }
-
-    .profile-card img {
-      width: 320px;
-      height: 320px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 6px solid #60a5fa;
-      box-shadow: 0 0 40px rgba(96,165,250,0.6);
-    }
-
-    section {
-      padding: 80px 10%;
-    }
-
-    .section-title {
-      font-size: 40px;
-      margin-bottom: 40px;
-      color: #60a5fa;
-      text-align: center;
-    }
-
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 25px;
-    }
-
-    .card {
-      background: rgba(255,255,255,0.05);
-      padding: 30px;
-      border-radius: 20px;
-      backdrop-filter: blur(10px);
-      transition: 0.4s;
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 0 20px rgba(96,165,250,0.4);
-    }
-
-    .card h3 {
-      color: #93c5fd;
-      margin-bottom: 15px;
-    }
-
-    .skills-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      justify-content: center;
-    }
-
-    .skill {
-      padding: 12px 20px;
-      border-radius: 30px;
-      background: #1e40af;
-      transition: 0.3s;
-    }
-
-    .skill:hover {
-      transform: scale(1.1);
-      background: #3b82f6;
-    }
-
-    .timeline {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 25px;
-    }
-
-    .week-card {
-      background: rgba(255,255,255,0.05);
-      padding: 25px;
-      border-radius: 20px;
-      transition: 0.4s;
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .week-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 0 20px rgba(96,165,250,0.4);
-    }
-
-    .days {
-      margin-top: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .days button {
-      padding: 10px;
-      border: none;
-      border-radius: 10px;
-      background: #2563eb;
-      color: white;
-      cursor: pointer;
-      transition: 0.3s;
-      font-weight: 500;
-    }
-
-    .days button:hover {
-      background: #60a5fa;
-      color: black;
-      transform: translateX(5px);
-    }
-
-    .popup {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.85);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-      padding: 20px;
-    }
-
-    .popup-content {
-      background: #111827;
-      width: 90%;
-      max-width: 700px;
-      padding: 40px;
-      border-radius: 20px;
-      position: relative;
-      animation: popupShow 0.5s ease;
-    }
-
-    .popup-content h2 {
-      color: #60a5fa;
-      margin-bottom: 20px;
-    }
-
-    .popup-content p {
-      color: #cbd5e1;
-      line-height: 1.8;
-      margin-bottom: 20px;
-    }
-
-    .upload-box {
-      background: rgba(255,255,255,0.05);
-      padding: 20px;
-      border-radius: 15px;
-      border: 2px dashed #60a5fa;
-      text-align: center;
-      color: #94a3b8;
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 15px;
-      right: 20px;
-      font-size: 28px;
-      cursor: pointer;
-      color: white;
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px;
-      background: #020617;
-      color: #94a3b8;
-    }
-
-    @keyframes slideIn {
-      from {
-        transform: translateX(-100px);
-        opacity: 0;
-      }
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
-
-    @keyframes zoomIn {
-      from {
-        transform: scale(0.5);
-        opacity: 0;
-      }
-      to {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-
-    @keyframes popupShow {
-      from {
-        transform: scale(0.7);
-        opacity: 0;
-      }
-      to {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-
-    @media(max-width: 768px) {
-      .hero {
-        flex-direction: column-reverse;
-        text-align: center;
-      }
-
-      .hero-text h1 {
-        font-size: 42px;
-      }
-
-      .profile-card img {
-        width: 240px;
-        height: 240px;
-      }
-    }
-  </style>
+/* CONTACT / FOOTER */
+.footer-section{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 1.5rem;text-align:center;}
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;max-width:700px;margin:0 auto 2rem;}
+.contact-item{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;text-align:center;}
+.contact-item a{color:var(--accent2);text-decoration:none;font-weight:500;}
+.contact-item a:hover{text-decoration:underline;}
+.quote{font-family:var(--display);font-style:italic;font-size:1.2rem;color:var(--text2);max-width:580px;margin:0 auto;line-height:1.7;}
+.quote span{color:var(--gold);}
+.domain{font-size:.95rem;color:var(--text3);margin-top:1rem;}
+.domain a{color:var(--accent);text-decoration:none;font-weight:600;}
+.pill{display:inline-block;padding:.3rem .9rem;border-radius:100px;font-size:.8rem;font-weight:600;margin:.2rem;}
+.pill-teal{background:rgba(62,207,176,.15);color:#3ecfb0;}
+</style>
 </head>
-
 <body>
 
-<header>
-  <div class="hero">
-    <div class="hero-text">
-      <h1>Shalukumari Shah</h1>
-      <h2>Engineering Diploma in Mechatronics</h2>
-      <p>
-        Curious mind, innovative thinker, and technology explorer currently working as an Intern at Tinkerers Lab, Sanjivani University. Passionate about creativity, smart engineering, leadership, teamwork, and continuous learning with a strong interest in future technologies and innovation.
-      </p>
+<nav>
+  <div class="nav-logo">Shalu Shah</div>
+  <div class="nav-links">
+    <button class="active" onclick="showPage('home')">Home</button>
+    <button onclick="showPage('about')">About</button>
+    <button onclick="showPage('report')">Journal</button>
+    <button onclick="showPage('contact')">Contact</button>
+  </div>
+</nav>
 
-      <div class="hero-buttons">
-        <a href="#about" class="btn-primary">Explore Portfolio</a>
-        <a href="#sessions" class="btn-secondary">Weekly Sessions</a>
+<!-- ==================== HOME PAGE ==================== -->
+<div id="page-home" class="page active">
+  <section class="hero">
+    <div>
+      <div class="hero-badge">🤖 Mechatronics Engineer in Progress</div>
+      <h1>Hi, I'm<br/><span>Shalu Shah</span></h1>
+      <p class="hero-sub">Passionate engineer, robotics enthusiast, and lifelong learner — building the future one project at a time.</p>
+      <div class="hero-cta">
+        <button class="btn-primary" onclick="showPage('about')">Explore My Journey</button>
+        <button class="btn-outline" onclick="showPage('report')">Weekly Journal</button>
       </div>
     </div>
+  </section>
 
-    <div class="profile-card">
-      <div>
-        <img id="profilePreview" src="https://via.placeholder.com/320" alt="Profile Photo">
+  <div class="section" style="padding-top:0;">
+    <div class="grid-3">
+      <div class="card" style="text-align:center;">
+        <div style="font-family:var(--display);font-size:2.5rem;font-weight:900;color:var(--accent2);">1+</div>
+        <div style="color:var(--text2);font-size:.9rem;margin-top:.35rem;">Year Engineering Diploma</div>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-family:var(--display);font-size:2.5rem;font-weight:900;color:var(--teal);">🤖</div>
+        <div style="color:var(--text2);font-size:.9rem;margin-top:.35rem;">Robotics Club Member</div>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-family:var(--display);font-size:2.5rem;font-weight:900;color:var(--gold);">1</div>
+        <div style="color:var(--text2);font-size:.9rem;margin-top:.35rem;">Haemodialysis Project</div>
+      </div>
+    </div>
+  </div>
+</div>
 
-        <div style="margin-top:20px; text-align:center;">
-          <label for="profileUpload" style="background:#2563eb; padding:12px 20px; border-radius:30px; cursor:pointer; font-weight:600; display:inline-block; transition:0.3s;">
-            Upload Profile Photo
-          </label>
+<!-- ==================== ABOUT PAGE ==================== -->
+<div id="page-about" class="page">
 
-          <input type="file" id="profileUpload" accept="image/*" style="display:none;">
+  <!-- Skills -->
+  <div class="section">
+    <div class="section-label">What I bring</div>
+    <div class="section-title">Skills &amp; Strengths</div>
+    <p class="section-desc">A blend of technical and interpersonal abilities that drive real results in engineering environments.</p>
+    <div>
+      <span class="skill-tag">💬 Communication</span>
+      <span class="skill-tag">⚡ Smart Working</span>
+      <span class="skill-tag">🤝 Coordination</span>
+      <span class="skill-tag">👑 Leadership</span>
+      <span class="skill-tag">👥 Team Working</span>
+      <span class="skill-tag">🔥 Passionate</span>
+      <span class="skill-tag">🔧 Mechatronics</span>
+      <span class="skill-tag">🤖 Robotics</span>
+    </div>
+  </div>
+
+  <!-- Experience -->
+  <div class="section" style="padding-top:0;">
+    <div class="section-label">My journey</div>
+    <div class="section-title">Experience</div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-title">Engineering Diploma – Mechatronics</div>
+        <div class="timeline-org">Mechatronics Department · 1 Year</div>
+        <div class="timeline-desc">Completed a comprehensive 1-year engineering diploma covering mechanical systems, electronics, programming, and automation fundamentals.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-title">Robotics Club Member</div>
+        <div class="timeline-org">Robotics Club · Active Member</div>
+        <div class="timeline-desc">Active participant in robotics design challenges, competitions, and hands-on workshops. Collaborating with peers to build and program robotic systems.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-title">Haemodialysis Project</div>
+        <div class="timeline-org">Engineering Project · Research &amp; Development</div>
+        <div class="timeline-desc">Worked on a haemodialysis (kidney dialysis) engineering project — applying mechatronics principles to a real-world medical device challenge.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Aims -->
+  <div class="section" style="padding-top:0;">
+    <div class="section-label">Looking ahead</div>
+    <div class="section-title">My Aims</div>
+    <div class="grid-2">
+      <div class="aim-card">
+        <div class="aim-icon">🎯</div>
+        <div>
+          <div style="font-weight:600;margin-bottom:.3rem;">Become a Successful Mechatronics Engineer</div>
+          <div style="color:var(--text2);font-size:.9rem;line-height:1.6;">My primary goal is to master mechatronics and contribute to innovative engineering solutions that make a real difference in the world.</div>
+        </div>
+      </div>
+      <div class="aim-card">
+        <div class="aim-icon">🤖</div>
+        <div>
+          <div style="font-weight:600;margin-bottom:.3rem;">Advance in Robotics &amp; Automation</div>
+          <div style="color:var(--text2);font-size:.9rem;line-height:1.6;">Deepen expertise in robotics, automation systems, and AI-driven engineering to build smart machines of the future.</div>
+        </div>
+      </div>
+      <div class="aim-card">
+        <div class="aim-icon">💡</div>
+        <div>
+          <div style="font-weight:600;margin-bottom:.3rem;">Innovate in Medical Engineering</div>
+          <div style="color:var(--text2);font-size:.9rem;line-height:1.6;">Building on the haemodialysis project, aspire to contribute engineering innovations that improve patient lives in healthcare.</div>
+        </div>
+      </div>
+      <div class="aim-card">
+        <div class="aim-icon">🌍</div>
+        <div>
+          <div style="font-weight:600;margin-bottom:.3rem;">Lead &amp; Inspire</div>
+          <div style="color:var(--text2);font-size:.9rem;line-height:1.6;">Use leadership and teamwork skills to guide future engineers and drive impactful collaborative projects.</div>
         </div>
       </div>
     </div>
   </div>
-</header>
+</div>
 
-<section id="about">
-  <h2 class="section-title">About Me</h2>
+<!-- ==================== JOURNAL / REPORT PAGE ==================== -->
+<div id="page-report" class="page">
+  <div class="section">
+    <div class="section-label">Progress Tracker</div>
+    <div class="section-title">Weekly Journal</div>
+    <p class="section-desc">Track your daily progress — upload photos, write notes, share files, and log code for each day of your training.</p>
 
-  <div class="card-grid">
-    <div class="card">
-      <h3>Department</h3>
-      <p>Engineering Diploma in Mechatronics with strong practical and technical learning experience in modern engineering technologies.</p>
-    </div>
-
-    <div class="card">
-      <h3>Professional Personality</h3>
-      <p>Smart worker, confident communicator, strong coordinator, responsible learner, and passionate innovator with leadership qualities and a positive personality.</p>
-    </div>
-
-    <div class="card">
-      <h3>Career Aim</h3>
-      <p>To become a successful mechatronics engineer and technology innovator who creates impactful real-world solutions through creativity, leadership, and smart engineering skills.</p>
-    </div>
-
-    <div class="card">
-      <h3>Strengths</h3>
-      <p>Problem solving, communication, coordinating, leadership, smart working, teamwork, adaptability, creativity, and fast learning abilities.</p>
-    </div>
-  </div>
-</section>
-
-<section>
-  <h2 class="section-title">My Skills</h2>
-
-  <div class="skills-list">
-    <div class="skill">Problem Solving</div>
-    <div class="skill">Communication</div>
-    <div class="skill">Coordinating</div>
-    <div class="skill">Leadership</div>
-    <div class="skill">Smart Working</div>
-    <div class="skill">Team Work</div>
-    <div class="skill">Innovation</div>
-    <div class="skill">Creativity</div>
-    <div class="skill">Technical Learning</div>
-    <div class="skill">Project Management</div>
-  </div>
-</section>
-
-<section>
-  <h2 class="section-title">Experience & Achievements</h2>
-
-  <div class="card-grid">
-    <div class="card">
-      <h3>Working Model of Haemodialysis</h3>
-      <p>Successfully participated in developing and presenting a working model of haemodialysis demonstrating innovation, technical understanding, and teamwork in healthcare engineering applications.</p>
-    </div>
-
-    <div class="card">
-      <h3>Robotics Club Member</h3>
-      <p>Active member of the Robotics Club with involvement in technical activities, innovation-based learning, teamwork, and modern robotics exploration.</p>
-    </div>
-
-    <div class="card">
-      <h3>Intern at Tinkerers Lab</h3>
-      <p>Currently gaining practical knowledge and technical exposure at Tinkerers Lab, Sanjivani University through project-based learning and innovation activities.</p>
-    </div>
-  </div>
-</section>
-
-<section>
-  <h2 class="section-title">Projects</h2>
-
-  <div class="card-grid">
-    <div class="card">
-      <h3>Smart Automation Project</h3>
-      <p>Designed a mini automation system using sensors and programming concepts for industrial applications.</p>
-    </div>
-
-    <div class="card">
-      <h3>Engineering Portfolio Website</h3>
-      <p>Developed a modern responsive portfolio website for internship documentation and project presentation.</p>
-    </div>
-
-    <div class="card">
-      <h3>Innovative Lab Activities</h3>
-      <p>Participated in technical activities and practical learning sessions at Tinkerers Lab.</p>
-    </div>
-  </div>
-</section>
-
-<section id="sessions">
-  <h2 class="section-title">Internship Weekly Sessions</h2>
-
-  <div class="timeline">
-
-    <div class="week-card">
-      <h3>Week 1</h3>
-      <p>Introduction to internship and technology exploration.</p>
-
-      <div class="days">
-        <button onclick="openPopup('Week 1 - Day 1')">Day 1</button>
-        <button onclick="openPopup('Week 1 - Day 2')">Day 2</button>
-        <button onclick="openPopup('Week 1 - Day 3')">Day 3</button>
-        <button onclick="openPopup('Week 1 - Day 4')">Day 4</button>
-        <button onclick="openPopup('Week 1 - Day 5')">Day 5</button>
-        <button onclick="openPopup('Week 1 - Day 6')">Day 6</button>
+    <!-- Week selection view -->
+    <div id="view-weeks">
+      <div class="weeks-grid">
+        <div class="week-card" onclick="openWeek(1)">
+          <div class="week-num">01</div>
+          <div class="week-label">Week One</div>
+          <div class="week-days-count">6 Days</div>
+        </div>
+        <div class="week-card" onclick="openWeek(2)">
+          <div class="week-num">02</div>
+          <div class="week-label">Week Two</div>
+          <div class="week-days-count">6 Days</div>
+        </div>
+        <div class="week-card" onclick="openWeek(3)">
+          <div class="week-num">03</div>
+          <div class="week-label">Week Three</div>
+          <div class="week-days-count">6 Days</div>
+        </div>
+        <div class="week-card" onclick="openWeek(4)">
+          <div class="week-num">04</div>
+          <div class="week-label">Week Four</div>
+          <div class="week-days-count">6 Days</div>
+        </div>
       </div>
     </div>
 
-    <div class="week-card">
-      <h3>Week 2</h3>
-      <p>Hands-on learning and practical implementation.</p>
+    <!-- Days view -->
+    <div id="view-days" style="display:none;">
+      <button class="back-btn" onclick="backToWeeks()">← Back to Weeks</button>
+      <div style="margin-bottom:1.5rem;">
+        <div class="section-label" id="days-week-label"></div>
+        <div class="section-title" id="days-week-title"></div>
+      </div>
+      <div class="days-grid" id="days-grid"></div>
+    </div>
 
-      <div class="days">
-        <button onclick="openPopup('Week 2 - Day 1')">Day 1</button>
-        <button onclick="openPopup('Week 2 - Day 2')">Day 2</button>
-        <button onclick="openPopup('Week 2 - Day 3')">Day 3</button>
-        <button onclick="openPopup('Week 2 - Day 4')">Day 4</button>
-        <button onclick="openPopup('Week 2 - Day 5')">Day 5</button>
-        <button onclick="openPopup('Week 2 - Day 6')">Day 6</button>
+    <!-- Day detail view -->
+    <div id="view-day-detail" style="display:none;">
+      <button class="back-btn" onclick="backToDays()">← Back to Days</button>
+      <div class="day-detail-header">
+        <div class="day-detail-title" id="detail-title"></div>
+        <div class="day-detail-subtitle" id="detail-subtitle"></div>
+      </div>
+
+      <div class="tab-row">
+        <button class="tab active" onclick="switchTab('notes',this)">📝 Notes</button>
+        <button class="tab" onclick="switchTab('photos',this)">🖼️ Photos</button>
+        <button class="tab" onclick="switchTab('files',this)">📁 Files</button>
+        <button class="tab" onclick="switchTab('code',this)">💻 Code</button>
+      </div>
+
+      <!-- Notes tab -->
+      <div id="tab-notes" class="entries-area">
+        <div id="notes-list"></div>
+        <div class="note-form">
+          <input class="note-input" id="note-input" type="text" placeholder="Write a note for today..." />
+          <button class="save-btn" onclick="addNote()">Add</button>
+        </div>
+      </div>
+
+      <!-- Photos tab -->
+      <div id="tab-photos" class="entries-area" style="display:none;">
+        <label class="upload-box">
+          <div class="upload-icon">🖼️</div>
+          <div class="upload-label">Upload Photos</div>
+          <div class="upload-hint">Click to select images</div>
+          <input class="upload-input" type="file" accept="image/*" multiple onchange="addPhotos(this)"/>
+        </label>
+        <div class="photo-grid" id="photos-grid"></div>
+      </div>
+
+      <!-- Files tab -->
+      <div id="tab-files" class="entries-area" style="display:none;">
+        <label class="upload-box">
+          <div class="upload-icon">📁</div>
+          <div class="upload-label">Upload Files</div>
+          <div class="upload-hint">PDF, DOCX, XLSX, ZIP, etc.</div>
+          <input class="upload-input" type="file" multiple onchange="addFiles(this)"/>
+        </label>
+        <div id="files-list" style="margin-top:.75rem;"></div>
+      </div>
+
+      <!-- Code tab -->
+      <div id="tab-code" class="entries-area" style="display:none;">
+        <textarea class="code-area" id="code-input" placeholder="// Paste or type your code here...&#10;// e.g. Arduino, Python, C++..."></textarea>
+        <div style="display:flex;gap:.75rem;margin-top:.75rem;align-items:center;flex-wrap:wrap;">
+          <select id="code-lang" style="background:var(--bg3);border:1.5px solid var(--border);color:var(--text);padding:.55rem .9rem;border-radius:8px;font-family:var(--font);font-size:.85rem;outline:none;">
+            <option>Arduino / C++</option>
+            <option>Python</option>
+            <option>JavaScript</option>
+            <option>C</option>
+            <option>Other</option>
+          </select>
+          <button class="save-btn" onclick="saveCode()">Save Code</button>
+        </div>
+        <div id="code-saved-list" style="margin-top:1rem;"></div>
       </div>
     </div>
-
-    <div class="week-card">
-      <h3>Week 3</h3>
-      <p>Project development and technical improvement.</p>
-
-      <div class="days">
-        <button onclick="openPopup('Week 3 - Day 1')">Day 1</button>
-        <button onclick="openPopup('Week 3 - Day 2')">Day 2</button>
-        <button onclick="openPopup('Week 3 - Day 3')">Day 3</button>
-        <button onclick="openPopup('Week 3 - Day 4')">Day 4</button>
-        <button onclick="openPopup('Week 3 - Day 5')">Day 5</button>
-        <button onclick="openPopup('Week 3 - Day 6')">Day 6</button>
-      </div>
-    </div>
-
-    <div class="week-card">
-      <h3>Week 4</h3>
-      <p>Final presentations, documentation, and achievements.</p>
-
-      <div class="days">
-        <button onclick="openPopup('Week 4 - Day 1')">Day 1</button>
-        <button onclick="openPopup('Week 4 - Day 2')">Day 2</button>
-        <button onclick="openPopup('Week 4 - Day 3')">Day 3</button>
-        <button onclick="openPopup('Week 4 - Day 4')">Day 4</button>
-        <button onclick="openPopup('Week 4 - Day 5')">Day 5</button>
-        <button onclick="openPopup('Week 4 - Day 6')">Day 6</button>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<div class="popup" id="popup">
-  <div class="popup-content">
-    <span class="close-btn" onclick="closePopup()">&times;</span>
-
-    <h2 id="popupTitle"></h2>
-
-    <p>
-      Add your daily internship report here. You can write details after each point:
-      <br><br>
-      • What you learned today : _______________________________________<br><br>
-      • Technologies explored : _______________________________________<br><br>
-      • Tasks completed : _______________________________________<br><br>
-      • Skills improved : _______________________________________<br><br>
-      • Challenges solved : _______________________________________<br><br>
-      • Team activities : _______________________________________<br><br>
-      • New ideas & innovation : _______________________________________
-    </p>
-
-    <div class="upload-box">
-      <p>📷 Add your images here</p>
-      <input type="file" multiple>
-      <br><br>
-      <textarea rows="6" style="width:100%; padding:15px; border-radius:10px; border:none; outline:none;" placeholder="Write your daily session details here..."></textarea>
-    </div>
-
   </div>
 </div>
 
-<footer>
-  <p style="font-size:18px; margin-bottom:15px; color:#cbd5e1; font-style:italic;">
-    “Great things are never achieved alone. Teamwork builds innovation, strengthens ideas, and turns dreams into reality.”
-  </p>
+<!-- ==================== CONTACT PAGE ==================== -->
+<div id="page-contact" class="page">
+  <div class="section">
+    <div class="section-label">Get in touch</div>
+    <div class="section-title">Contact Shalu</div>
+    <p class="section-desc">Feel free to reach out for collaborations, questions, or just to say hello!</p>
+    <div class="contact-grid">
+      <div class="contact-item">
+        <div style="font-size:1.5rem;margin-bottom:.5rem;">🌐</div>
+        <div style="color:var(--text2);font-size:.82rem;margin-bottom:.35rem;">Website</div>
+        <a href="#">shalushah1912@gmail</a>
+      </div>
+      <div class="contact-item">
+        <div style="font-size:1.5rem;margin-bottom:.5rem;">📧</div>
+        <div style="color:var(--text2);font-size:.82rem;margin-bottom:.35rem;">Email</div>
+        <a href="#">shalushah1912@gmail.com</a>
+      </div>
+      <div class="contact-item">
+        <div style="font-size:1.5rem;margin-bottom:.5rem;">💼</div>
+        <div style="color:var(--text2);font-size:.82rem;margin-bottom:.35rem;">LinkedIn</div>
+        <a href="#">linkedin.com/in/shalu shah</a>
+      </div>
+    </div>
+  </div>
 
-  <p>© 2026 Internship Portfolio | Designed with Innovation, Leadership, and Team Spirit</p>
-</footer>
+  <div class="footer-section">
+    <p class="quote">"The <span>engine of success</span> runs on passion, precision, and the courage to build what doesn't yet exist."</p>
+    <div class="domain" style="margin-top:1.5rem;">
+      <a href="#">shalushah.com</a> · Mechatronics Engineer · India
+    </div>
+    <div style="margin-top:1rem;color:var(--text3);font-size:.8rem;">© 2026 Shalu Shah. Built with passion. 🤖</div>
+  </div>
+</div>
 
+<!-- ==================== JAVASCRIPT ==================== -->
 <script>
-  function openPopup(day) {
-    document.getElementById('popup').style.display = 'flex';
-    document.getElementById('popupTitle').innerText = day;
+const DAY_NAMES = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+let currentWeek = null;
+let currentDay = null;
+const storage = {};
+
+function getKey() { return 'w' + currentWeek + 'd' + currentDay; }
+function getData() {
+  if (!storage[getKey()]) {
+    storage[getKey()] = { notes: [], photos: [], files: [], codes: [] };
   }
+  return storage[getKey()];
+}
 
-  function closePopup() {
-    document.getElementById('popup').style.display = 'none';
-  }
-
-  window.onclick = function(event) {
-    const popup = document.getElementById('popup');
-    if (event.target === popup) {
-      popup.style.display = 'none';
-    }
-  }
-
-  const profileUpload = document.getElementById('profileUpload');
-  const profilePreview = document.getElementById('profilePreview');
-
-  profileUpload.addEventListener('change', function() {
-    const file = this.files[0];
-
-    if(file) {
-      const reader = new FileReader();
-
-      reader.onload = function(e) {
-        profilePreview.src = e.target.result;
-      }
-
-      reader.readAsDataURL(file);
-    }
+function showPage(p) {
+  document.querySelectorAll('.page').forEach(x => x.classList.remove('active'));
+  document.getElementById('page-' + p).classList.add('active');
+  document.querySelectorAll('.nav-links button').forEach(b => {
+    const map = { home: 'home', about: 'about', report: 'journal', contact: 'contact' };
+    b.classList.toggle('active', b.textContent.toLowerCase().includes(map[p]));
   });
-</script>
+  if (p === 'report') showWeeksView();
+}
 
+function showWeeksView() {
+  document.getElementById('view-weeks').style.display = '';
+  document.getElementById('view-days').style.display = 'none';
+  document.getElementById('view-day-detail').style.display = 'none';
+}
+
+function ordinal(n) {
+  return ['', 'One', 'Two', 'Three', 'Four'][n] || n;
+}
+
+function openWeek(w) {
+  currentWeek = w;
+  document.getElementById('view-weeks').style.display = 'none';
+  document.getElementById('view-days').style.display = '';
+  document.getElementById('view-day-detail').style.display = 'none';
+  document.getElementById('days-week-label').textContent = 'Week ' + w;
+  document.getElementById('days-week-title').textContent = 'Week ' + ordinal(w) + ' – Daily Log';
+  const grid = document.getElementById('days-grid');
+  grid.innerHTML = '';
+  for (let d = 1; d <= 6; d++) {
+    const dc = document.createElement('div');
+    dc.className = 'day-card';
+    dc.onclick = () => openDay(d);
+    dc.innerHTML = `
+      <div class="day-num">${String(d).padStart(2,'0')}</div>
+      <div class="day-label">Day ${d} &middot; ${DAY_NAMES[d-1]}</div>
+      <div class="day-dot"></div>`;
+    grid.appendChild(dc);
+  }
+}
+
+function openDay(d) {
+  currentDay = d;
+  document.getElementById('view-days').style.display = 'none';
+  document.getElementById('view-day-detail').style.display = '';
+  document.getElementById('detail-title').textContent = 'Week ' + currentWeek + ' · Day ' + d;
+  document.getElementById('detail-subtitle').textContent = DAY_NAMES[d-1] + ' — Week ' + ordinal(currentWeek) + ' Journal Entry';
+  // Reset to notes tab
+  switchTab('notes', document.querySelector('.tab'));
+  renderNotes(); renderPhotos(); renderFiles(); renderCodes();
+}
+
+function backToWeeks() {
+  document.getElementById('view-weeks').style.display = '';
+  document.getElementById('view-days').style.display = 'none';
+  document.getElementById('view-day-detail').style.display = 'none';
+}
+
+function backToDays() {
+  document.getElementById('view-days').style.display = '';
+  document.getElementById('view-day-detail').style.display = 'none';
+}
+
+function switchTab(tab, btn) {
+  ['notes','photos','files','code'].forEach(t => {
+    document.getElementById('tab-' + t).style.display = t === tab ? '' : 'none';
+  });
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+}
+
+/* ---- NOTES ---- */
+function addNote() {
+  const inp = document.getElementById('note-input');
+  const txt = inp.value.trim();
+  if (!txt) return;
+  getData().notes.push({ text: txt, time: new Date().toLocaleTimeString() });
+  inp.value = '';
+  renderNotes();
+}
+function renderNotes() {
+  const list = document.getElementById('notes-list');
+  const notes = getData().notes;
+  if (!notes.length) {
+    list.innerHTML = '<div style="color:var(--text3);text-align:center;padding:1.5rem 0;font-size:.9rem;">No notes yet. Add your first note below!</div>';
+    return;
+  }
+  list.innerHTML = notes.map((n, i) => `
+    <div class="entry-item">
+      <div class="entry-icon" style="background:rgba(124,106,247,.2);">📝</div>
+      <div class="entry-text">
+        <div class="entry-name">${n.text}</div>
+        <div class="entry-meta">${n.time}</div>
+      </div>
+      <button class="entry-del" onclick="delNote(${i})">✕</button>
+    </div>`).join('');
+}
+function delNote(i) { getData().notes.splice(i, 1); renderNotes(); }
+document.getElementById('note-input').addEventListener('keydown', e => { if (e.key === 'Enter') addNote(); });
+
+/* ---- PHOTOS ---- */
+function addPhotos(inp) {
+  const files = Array.from(inp.files);
+  files.forEach(f => {
+    const reader = new FileReader();
+    reader.onload = e => { getData().photos.push({ src: e.target.result, name: f.name }); renderPhotos(); };
+    reader.readAsDataURL(f);
+  });
+  inp.value = '';
+}
+function renderPhotos() {
+  const grid = document.getElementById('photos-grid');
+  const photos = getData().photos;
+  grid.innerHTML = photos.map((p, i) => `
+    <div style="position:relative;">
+      <img class="photo-thumb" src="${p.src}" alt="${p.name}" />
+      <button onclick="delPhoto(${i})" style="position:absolute;top:4px;right:4px;background:rgba(0,0,0,.6);border:none;color:#fff;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:.75rem;">✕</button>
+    </div>`).join('');
+}
+function delPhoto(i) { getData().photos.splice(i, 1); renderPhotos(); }
+
+/* ---- FILES ---- */
+function addFiles(inp) {
+  Array.from(inp.files).forEach(f => {
+    getData().files.push({ name: f.name, size: (f.size / 1024).toFixed(1) + 'KB', time: new Date().toLocaleTimeString() });
+  });
+  renderFiles();
+  inp.value = '';
+}
+function renderFiles() {
+  const list = document.getElementById('files-list');
+  const files = getData().files;
+  if (!files.length) { list.innerHTML = ''; return; }
+  list.innerHTML = files.map((f, i) => `
+    <div class="entry-item">
+      <div class="entry-icon" style="background:rgba(244,197,66,.15);">📎</div>
+      <div class="entry-text">
+        <div class="entry-name">${f.name}</div>
+        <div class="entry-meta">${f.size} · ${f.time}</div>
+      </div>
+      <button class="entry-del" onclick="delFile(${i})">✕</button>
+    </div>`).join('');
+}
+function delFile(i) { getData().files.splice(i, 1); renderFiles(); }
+
+/* ---- CODE ---- */
+function saveCode() {
+  const code = document.getElementById('code-input').value.trim();
+  const lang = document.getElementById('code-lang').value;
+  if (!code) return;
+  getData().codes.push({ code, lang, time: new Date().toLocaleTimeString() });
+  document.getElementById('code-input').value = '';
+  renderCodes();
+}
+function renderCodes() {
+  const list = document.getElementById('code-saved-list');
+  const codes = getData().codes;
+  list.innerHTML = codes.map((c, i) => `
+    <div class="entry-item" style="flex-direction:column;gap:.5rem;">
+      <div style="display:flex;justify-content:space-between;align-items:center;width:100%;">
+        <span class="pill pill-teal">${c.lang}</span>
+        <span style="color:var(--text3);font-size:.78rem;">${c.time}</span>
+        <button class="entry-del" onclick="delCode(${i})">✕</button>
+      </div>
+      <pre style="background:var(--bg);border-radius:8px;padding:.75rem;font-family:var(--mono);font-size:.82rem;color:#a9c2e4;white-space:pre-wrap;width:100%;overflow-x:auto;">${escHtml(c.code)}</pre>
+    </div>`).join('');
+}
+function delCode(i) { getData().codes.splice(i, 1); renderCodes(); }
+function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+</script>
 </body>
 </html>
